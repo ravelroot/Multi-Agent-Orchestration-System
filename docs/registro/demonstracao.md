@@ -1,6 +1,6 @@
 # Execução de demonstração
 
-Atualizado em 01/11/2026 18:55 (Brasília).
+Atualizado em 01/11/2026 19:47 (Brasília).
 
 Execução completa no modo demonstração, com ferramentas simuladas.
 
