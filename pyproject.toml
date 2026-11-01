@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apogeu"
+version = "1.0.0"
+description = "Orquestrador de agentes de IA em LangGraph: supervisor, pesquisador, redator e revisor colaborando em textos com fontes."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+
+[tool.setuptools.packages.find]
+include = ["apogeu*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning", "ignore::UserWarning"]
