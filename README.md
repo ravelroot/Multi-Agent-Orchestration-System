@@ -11,7 +11,7 @@
 
 <p align="center">
   <b>Versão 1.0.0</b><br>
-  Python 3.11+ · LangGraph · LangChain · FastAPI · SQLite · Next.js 16 · React 19 · TypeScript · OpenAI, Anthropic, Ollama ou modo demonstração
+  Python 3.11+ · LangGraph · LangChain · FastAPI · SQLite · Next.js 16 · React 19 · TypeScript · Go 1.24 + WebView2 (app do Windows) · OpenAI, Anthropic, Ollama ou modo demonstração
 </p>
 
 ---
@@ -19,6 +19,8 @@
 <p align="center">
   <img src="docs/images/tela-equipe-trabalhando.png" alt="Equipe trabalhando: linha do tempo à esquerda e o redator escrevendo à direita">
 </p>
+
+> **Para abrir no Windows:** dê dois cliques no [`Apogeu.exe`](Apogeu.exe), o arquivo com o logo do Apogeu na raiz da pasta. Detalhes em [Como rodar](#como-rodar).
 
 ## O que o Apogeu faz
 
@@ -74,8 +76,11 @@ flowchart LR
 
 Pré-requisitos: **Python 3.11 ou mais recente** e **Node.js 20.9 ou mais recente** (só para compilar a interface).
 
-**Windows:** dê dois cliques em `iniciar.cmd`.
-**Linux / macOS:** `./iniciar.sh`
+| Sistema | Como abrir |
+|---|---|
+| **Windows** | Dois cliques em **[`Apogeu.exe`](Apogeu.exe)** |
+| Windows, pelo console | Dois cliques em `iniciar.cmd` e abra http://127.0.0.1:8000 no navegador |
+| Linux / macOS | `./iniciar.sh` e abra http://127.0.0.1:8000 no navegador |
 
 Os scripts criam o ambiente virtual, instalam as dependências, copiam `.env.example` para `.env`, compilam a interface e sobem o servidor em **http://127.0.0.1:8000**.
 
@@ -104,6 +109,25 @@ python -m apogeu
 Para desenvolver a interface com recarga automática, deixe a API rodando e use `cd frontend && npm run dev` (abre em http://localhost:3000 e conversa com a API em http://127.0.0.1:8000).
 
 Com Docker: `docker compose up --build` sobe o Apogeu e um Ollama. Depois rode `docker compose exec ollama ollama pull qwen2.5:7b`.
+
+### App do Windows (Apogeu.exe)
+
+O `Apogeu.exe` abre o Apogeu **maximizado**, numa janela própria do Windows, sem navegador:
+
+- Na **primeira abertura** (e quando a versão muda), ele roda o `iniciar.cmd` numa janela de console para preparar tudo. Depois disso, abre direto.
+- Ele sobe o servidor local escondido, mostra a interface assim que o servidor responde e **encerra o servidor ao fechar a janela**.
+- Usa a porta do `.env` (8000 por padrão). Se ela estiver ocupada por outro programa, escolhe uma livre; se já houver um Apogeu rodando nela, só abre a janela.
+- Abrir de novo traz a janela aberta para a frente. Na primeira vez, cria o atalho **Apogeu** no menu Iniciar.
+- A saída do servidor fica em `data/apogeu.log`. Se algo falhar, a janela mostra as últimas linhas, com **Tentar de novo** e **Abrir o registro**.
+- Links externos, como as fontes do texto, abrem no navegador padrão. Precisa do Microsoft Edge WebView2 Runtime, que já vem no Windows 10 e 11 atualizados.
+
+Por dentro, é um programa pequeno em Go com o WebView2 do Windows ([`desktop/`](desktop/)). Para gerá-lo de novo (precisa do Go 1.24 ou mais recente; a versão exata fica em `desktop/go.mod`):
+
+```bash
+python scripts/construir_exe.py
+```
+
+O ícone é desenhado a partir do [`docs/images/logo.svg`](docs/images/logo.svg), em preto sobre fundo branco, e as propriedades do arquivo trazem a versão do `VERSION`.
 
 ### Escolha um provedor
 
@@ -189,9 +213,13 @@ frontend/            interface Next.js + React + TypeScript (exportação estát
   app/               Nova tarefa e acompanhamento (/), Equipe e prompts (/equipe)
   components/        barra lateral, compositor, equipe, linha do tempo, documento e aprovação do plano
   lib/               cliente da API, tipos e redutor de eventos
-scripts/             capturas de tela
+desktop/             Apogeu.exe em Go + WebView2: prepara, sobe o servidor e abre a janela
+scripts/             capturas de tela e geração do Apogeu.exe
 docs/                logo e capturas de tela
 tests/               testes automatizados
+Apogeu.exe           abre o Apogeu no Windows
+iniciar.cmd          prepara e sobe o servidor pelo console no Windows
+iniciar.sh           prepara e sobe o servidor no Linux e no macOS
 ```
 
 ## API

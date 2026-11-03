@@ -28,5 +28,6 @@ if defined CONSTRUIR (
     if exist frontend\out\index.html (>frontend\out\.versao echo %VERSAO%)
   ) || echo Node.js nao encontrado. A API sobe, mas a interface precisa do build em frontend\out.
 )
+if /i "%~1"=="preparar" exit /b 0
 python -m apogeu
 pause

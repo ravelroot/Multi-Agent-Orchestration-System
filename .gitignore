@@ -17,3 +17,6 @@ frontend/next-env.d.ts
 .vscode/
 .DS_Store
 Thumbs.db
+desktop/apogeu.ico
+desktop/versioninfo.json
+desktop/*.syso

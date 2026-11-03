@@ -11,7 +11,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 PASTA = RAIZ / "docs" / "registro"
-EXTENSOES = {".py": "Python", ".ts": "TypeScript", ".tsx": "TypeScript (React)", ".css": "CSS", ".yml": "YAML", ".sh": "Shell", ".cmd": "Batch"}
+EXTENSOES = {".py": "Python", ".ts": "TypeScript", ".tsx": "TypeScript (React)", ".css": "CSS", ".yml": "YAML", ".sh": "Shell", ".cmd": "Batch", ".go": "Go"}
 IGNORAR = {"node_modules", ".next", "out", ".venv", "data", ".git", "__pycache__"}
 
 

@@ -23,4 +23,5 @@ if [ ! -f frontend/out/index.html ] || [ "$(tr -d '[:space:]' < frontend/out/.ve
     echo "Node.js não encontrado. A API sobe, mas a interface precisa do build em frontend/out."
   fi
 fi
+[ "${1:-}" = "preparar" ] && exit 0
 exec python -m apogeu
