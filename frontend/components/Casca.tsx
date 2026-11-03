@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import { ROTULO_STATUS, STATUS_ATIVOS } from "@/lib/eventos";
 import type { ResumoExecucao, Saude } from "@/lib/tipos";
@@ -96,6 +96,77 @@ function SeletorTema() {
   );
 }
 
+const PALETAS = [
+  { id: "apogeu", cores: ["#e6ddce", "#a3b4be", "#f6e4a6", "#5d1c16"] },
+  { id: "bento", cores: ["#f5f4f4", "#bab7b6", "#4d4b4b", "#000000"] },
+  { id: "sonda", cores: ["#f3f1ec", "#7fa7b8", "#17212b", "#a8235a"] },
+  { id: "nexo", cores: ["#e8e8e8", "#d9d1ce", "#ab9d9d", "#000000"] },
+];
+
+function Cores({ cores }: { cores: readonly string[] }) {
+  return (
+    <span className="cores" aria-hidden="true">
+      {cores.map((c) => (
+        <i key={c} style={{ background: c }} />
+      ))}
+    </span>
+  );
+}
+
+function SeletorPaleta() {
+  const [paleta, setPaleta] = useState("apogeu");
+  const [aberto, setAberto] = useState(false);
+  const caixa = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setPaleta(document.documentElement.dataset.palette ?? "apogeu");
+  }, []);
+  useEffect(() => {
+    if (!aberto) return;
+    const fora = (e: PointerEvent) => {
+      if (!caixa.current?.contains(e.target as Node)) setAberto(false);
+    };
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAberto(false);
+    };
+    document.addEventListener("pointerdown", fora);
+    document.addEventListener("keydown", tecla);
+    return () => {
+      document.removeEventListener("pointerdown", fora);
+      document.removeEventListener("keydown", tecla);
+    };
+  }, [aberto]);
+  const escolher = (id: string) => {
+    setPaleta(id);
+    setAberto(false);
+    if (id === "apogeu") delete document.documentElement.dataset.palette;
+    else document.documentElement.dataset.palette = id;
+    try {
+      if (id === "apogeu") localStorage.removeItem("apogeu.paleta");
+      else localStorage.setItem("apogeu.paleta", id);
+    } catch {}
+  };
+  const atual = PALETAS.find((p) => p.id === paleta) ?? PALETAS[0];
+  return (
+    <div className="paleta" ref={caixa}>
+      <button type="button" className="paleta-botao" aria-haspopup="menu" aria-expanded={aberto} onClick={() => setAberto(!aberto)} title="Paleta de cores">
+        <Icone nome="paleta" />
+        <span>Paleta de cores</span>
+        <Cores cores={atual.cores} />
+      </button>
+      {aberto && (
+        <div className="paleta-menu" role="menu" aria-label="Paleta de cores">
+          {PALETAS.map((p, i) => (
+            <button key={p.id} type="button" role="menuitemradio" aria-checked={p.id === paleta} aria-label={`Paleta ${i + 1}`} onClick={() => escolher(p.id)}>
+              <span>{p.id === paleta ? "✓" : ""}</span>
+              <Cores cores={p.cores} />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Casca({ children }: { children: React.ReactNode }) {
   const [aberta, setAberta] = useState(false);
   const [saude, setSaude] = useState<Saude | null>(null);
@@ -140,6 +211,7 @@ export function Casca({ children }: { children: React.ReactNode }) {
               </>
             )}
           </div>
+          <SeletorPaleta />
           <SeletorTema />
         </div>
       </aside>

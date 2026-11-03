@@ -20,7 +20,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const TEMA = `try{var t=localStorage.getItem("apogeu.tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+const TEMA = `try{var t=localStorage.getItem("apogeu.tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;var p=localStorage.getItem("apogeu.paleta");if(p==="bento"||p==="sonda"||p==="nexo")document.documentElement.dataset.palette=p}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
