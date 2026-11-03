@@ -1,14 +1,15 @@
 # Tamanho do código
 
-Atualizado em 02/11/2026 17:24 (Brasília).
+Atualizado em 03/11/2026 17:27 (Brasília).
 
 | Linguagem | Arquivos | Linhas |
 |---|---|---|
-| Python | 19 | 2732 |
-| TypeScript (React) | 12 | 1004 |
+| Python | 20 | 2907 |
+| TypeScript (React) | 12 | 1074 |
+| Go | 6 | 798 |
+| CSS | 1 | 611 |
 | TypeScript | 5 | 463 |
-| CSS | 1 | 357 |
 | YAML | 3 | 143 |
-| Batch | 1 | 32 |
-| Shell | 1 | 26 |
-| Total | 42 | 4757 |
+| Batch | 1 | 33 |
+| Shell | 1 | 27 |
+| Total | 49 | 6056 |
