@@ -1,10 +1,10 @@
 # Testes automatizados
 
-Atualizado em 04/11/2026 09:08 (Brasília).
+Atualizado em 05/11/2026 09:14 (Brasília).
 
 | Item | Valor |
 |---|---|
-| Resultado | 22 passed in 1.55s |
+| Resultado | 22 passed in 2.17s |
 | Situação | todos passaram |
-| Duração | 3.2 s |
+| Duração | 4.9 s |
 | Python | 3.12.15 |
