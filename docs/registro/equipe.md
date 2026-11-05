@@ -1,6 +1,6 @@
 # Agentes e ferramentas
 
-Atualizado em 04/11/2026 14:06 (Brasília).
+Atualizado em 05/11/2026 14:24 (Brasília).
 
 | Agente | Temperatura | Ferramentas | Tamanho do prompt |
 |---|---|---|---|
