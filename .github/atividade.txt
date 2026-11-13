@@ -35,3 +35,4 @@
 2026-11-12 demonstracao 23:37 (Brasília)
 2026-11-13 testes 15:36 (Brasília)
 2026-11-13 grafo 17:40 (Brasília)
+2026-11-13 equipe 19:00 (Brasília)
