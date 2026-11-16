@@ -1,6 +1,6 @@
 # Grafo da equipe
 
-Atualizado em 15/11/2026 16:29 (Brasília).
+Atualizado em 16/11/2026 20:04 (Brasília).
 
 Grafo LangGraph compilado a partir de `apogeu/grafo.py`.
 
